@@ -700,11 +700,14 @@ void EditorApplication::InitializeSystemUI()
     auto systemUI = GetSubsystem<SystemUI>();
     systemUI->ApplyStyleDefault(true, 1.0f);
 
-    ImFont* defaultFont = systemUI->AddFont("Fonts/NotoSans-Regular.ttf", notoSansRanges, 16.f);
+    ImGuiIO& io = ui::GetIO();
+
+    // ImFont* defaultFont = systemUI->AddFont("Fonts/NotoSans-Regular.ttf", notoSansRanges, 16.f);
+    // FIXME: Cannot find SimHei.ttf
+    ImFont* defaultFont = systemUI->AddFont("Fonts/SimHei.ttf", io.Fonts->GetGlyphRangesDefault(), 16.f);
     systemUI->AddFont("Fonts/" FONT_ICON_FILE_NAME_FAS, fontAwesomeIconRanges, 14.f, true);
     systemUI->AddFont("Fonts/" FONT_ICON_FILE_NAME_FAS, fontAwesomeIconRanges, 12.f, true);
 
-    ImGuiIO& io = ui::GetIO();
     io.FontDefault = defaultFont;
 
     ImFont* monoFont = systemUI->AddFont("Fonts/NotoMono-Regular.ttf", notoMonoRanges, 14.f);

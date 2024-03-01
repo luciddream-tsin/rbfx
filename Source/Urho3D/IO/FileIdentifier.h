@@ -39,6 +39,28 @@ namespace Urho3D
 /// - If URI does not contain `:`, it is treated as special "empty" scheme,
 ///   and the entire URI is treated as relative path.
 /// - Conversion to URI string uses `scheme://` format.
+
+/* 对这些规则的进一步中文注释:
+ *
+ * - 以 / 或 x:/ 开头被视为 file 协议:
+ * 当文件标识符的路径以 / (在类 Unix 系统中表示根目录)开始, 或者以 x:/ (在 Windows 系统中, x 通常表示驱动器字母)开始时,
+ * 它将自动被视为使用 file 协议. 这意味着不需要在路径前面显式添加 file: 来表示路径是一个文件路径.
+ *
+ * - file: 协议不支持主机名:
+ * 对于 file: 协议, 不支持使用主机名. 这意味着, 即使在某些 URI 中可以使用 file://hostname/path 来指定一个网络上的文件路径,
+ * 这里的文件标识符不支持这种用法. 无论是 file:/path/to/file or file://path/to/file 还是 file:///path/to/file,
+ * 这些形式都是被支持的, 并且都表示一个绝对文件路径.
+
+ * - 不包含冒号 : 视为特殊的“空”协议:
+ * 如果文件标识符中没有包含协议分隔符 : , 那么它将被视为使用了一个特殊的"空"协议, 并且整个文件标识符被当作相对路径处理.
+ * 这表示文件标识符仅仅是一个路径, 没有指定一个明确的协议来描述如何访问这个路径.
+
+ * - 转换到 URI 字符串使用 scheme:// 格式:
+ * 当将这种文件标识符转换为 URI 字符串时, 使用 scheme:// 的格式, 即使对于 file 协议也是如此.
+ * 这个规则意味着, 转换后的 URI 将保持使用 :// 之后跟随路径的标准格式, 即使 file 协议并不需要使用两个斜线或者支持主机名.
+ * TODO: 通过举例进一步说明
+ * */
+
 struct URHO3D_API FileIdentifier
 {
     /// File identifier that references nothing.
